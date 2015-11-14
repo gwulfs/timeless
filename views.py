@@ -31,6 +31,5 @@ def table():
     response = urllib2.urlopen(req)
     result = response.read()
     obj = json.loads(result)
-    print 'Key phrases: ' + ','.join(obj['KeyPhrases'])
 
     return render_template('table.html', data=obj['KeyPhrases'][0])
