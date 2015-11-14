@@ -2,13 +2,16 @@ from flask import Flask, render_template, jsonify, make_response
 import sqlite3
 import json
 
+from azureml import Workspace
+from keys import azure_key
+
+import urllib2
+import urllib
+import sys
+import base64
+import json
+
 app = Flask(__name__)
-app.config.from_object('config')
-
-def access_db():
-    return sqlite3.connect(app.config['DATABASE'])
-
-# app
 
 @app.route("/")
 def login():
@@ -16,15 +19,18 @@ def login():
 
 @app.route("/table")
 def table():
-    conn = access_db()
-    cur = conn.execute("SELECT carrier, locality, hcpcs, nonFacFee, facFee, \
-                        state, location FROM h LIMIT 1000;")
-    pf15 = [dict(carrier=row[0], locality=row[1], hcpcs=row[2], \
-            non_fac_fee=row[3], fac_fee=row[4], state=row[5], location=row[6]) \
-            for row in cur.fetchall()]
-    conn.close()
-    return render_template('table.html', data=pf15)
+    account_key = azure_key
+    input_text = 'I am feeling sick'
+    base_url = 'https://api.datamarket.azure.com/data.ashx/amla/text-analytics/'
+    creds = base64.b64encode('AccountKey:' + account_key)
+    headers = {'Content-Type':'application/json', 'Authorization':('Basic '+ creds)}
+    params = { 'Text': input_text}
 
-@app.errorhandler(404)
-def not_found(error):
-    return make_response(jsonify({'error': 'not found'}), 404)
+    key_phrases_url = base_url + '/GetKeyPhrases?' + urllib.urlencode(params)
+    req = urllib2.Request(key_phrases_url, None, headers)
+    response = urllib2.urlopen(req)
+    result = response.read()
+    obj = json.loads(result)
+    print 'Key phrases: ' + ','.join(obj['KeyPhrases'])
+
+    return render_template('table.html', data=obj['KeyPhrases'][0])

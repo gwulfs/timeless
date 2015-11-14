@@ -46,7 +46,8 @@
         <div class="container">
             <table id="hb" class="table table-striped table-bordered" cellspacing="0" width="100%">  
             <thead>
-                <tr>
+                {{ data }}
+                {# <tr>
                 {% set labels = ['Carrier', 'HCPCS', 'Locality', 'Facility Fee', 'Out of Facility Fee', 'State', 'Location'] %}
                 {% for label in labels %}
                 <th>{{ label }}</th>
@@ -64,7 +65,7 @@
                     <th>{{ pt['state'] }}</th>
                     <th>{{ pt['location'] }}</th>
                 </tr>
-                {% endfor %}
+                {% endfor %} #}
             </tbody>
         </div>
 
