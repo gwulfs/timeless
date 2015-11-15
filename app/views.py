@@ -65,15 +65,25 @@ def results():
     df = df[df[df.columns[2]] != '']
     df = df[df[df.columns[2]] != 'nan']
     df['wiki'] = df.wiki.apply(lambda x: x.lower().strip())
-    df['Best Entity literalString'] = df['Best Entity literalString'].apply(lambda x: x.lower().strip())  
+    df['Best Entity literalString'] = df['Best Entity literalString'].apply(lambda x: x.lower().strip())
     df['wiki'] = df['wiki'].map(lambda x: re.sub(r'[^\x00-\x7F]','',str(x)))
     df2 = pd.DataFrame(np.dot(model,np.transpose(vec.transform([user_input]).toarray())))
     df2['disease'] = df['Best Entity literalString']
     df2.columns = ['score', 'disease']
 
-    diseases = df2.sort('score', ascending=[0])[['score, disease']]   
+    diseases = df2.sort('score', ascending=[0])[:50]
+    lst_arpit = []
+    scores = list(diseases.score)
+    for i, dis in enumerate(list(diseases.disease)):
+        dic = {}
+        dic['name'] = dis
+        dic['score'] = scores[i]
+        lst_arpit.append(dic)
 
-    return render_template('dashboard.html', text_analytics = json.dumps(azure_key_phrases), search_query=json.dumps(all_text), azure_sentiment = (azure_sentiment*100), severity=severity, diseases=diseases[:5])
+
+    return render_template('dashboard.html', text_analytics = json.dumps(azure_key_phrases), \
+           search_query=json.dumps(all_text), azure_sentiment = (azure_sentiment*100), \
+           severity=severity, diseases=json.dumps(lst_arpit))
 
 @app.route('/dashboard')
 def dashboard():
