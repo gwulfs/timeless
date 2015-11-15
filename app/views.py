@@ -50,11 +50,12 @@ def results():
         vect = TfidfVectorizer(min_df=10, ngram_range=(1, 2))
         vect.fit_transform(df.wiki)
         severity = model.predict_proba(vect.transform([user_input]))[0][0] * 100
+        print severity
 
 
         # run though arpit model
-        pkl_file = open('arpit_model2.pkl', 'rb')
-        pkl_file_vec = open('vec2.pkl', 'rb')
+        pkl_file = open('arpit_model.pkl', 'rb')
+        pkl_file_vec = open('vec.pkl', 'rb')
         model = pickle.load(pkl_file)
         vec = pickle.load(pkl_file_vec)
         pkl_file.close()
@@ -79,15 +80,11 @@ def results():
             dic['label'] = dis
             dic['value'] = scores[i]
             lst_arpit.append(dic)
-	if score[1]  == 0:
-		severity = severity/1.75;
+        if scores[1]  == 0:
+            severity = severity / 1.75
 
         return render_template('dashboard.html', text_analytics = json.dumps(azure_key_phrases), \
                search_query=json.dumps(all_text), azure_sentiment = (azure_sentiment*100), \
                severity=severity, diseases=json.dumps(lst_arpit), disease_labels=list(diseases.disease), disease_score=list(diseases.score))
     else:
         return render_template('index.html')
-
-@app.route('/dashboard')
-def dashboard():
-    return render_template('dashboard.html')
