@@ -30,7 +30,7 @@ def index():
 def results():
     # get user input
     user_input = request.form['query']
-    if user_input!='':
+    if user_input != '':
         all_text = user_input.split()
 
         # run though azure APIs
@@ -53,8 +53,8 @@ def results():
 
 
         # run though arpit model
-        pkl_file = open('arpit_model.pkl', 'rb')
-        pkl_file_vec = open('vec.pkl', 'rb')
+        pkl_file = open('arpit_model2.pkl', 'rb')
+        pkl_file_vec = open('vec2.pkl', 'rb')
         model = pickle.load(pkl_file)
         vec = pickle.load(pkl_file_vec)
         pkl_file.close()
