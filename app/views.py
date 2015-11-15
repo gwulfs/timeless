@@ -79,7 +79,8 @@ def results():
             dic['label'] = dis
             dic['value'] = scores[i]
             lst_arpit.append(dic)
-
+	if score[1]  == 0:
+		severity = severity/1.75;
 
         return render_template('dashboard.html', text_analytics = json.dumps(azure_key_phrases), \
                search_query=json.dumps(all_text), azure_sentiment = (azure_sentiment*100), \
