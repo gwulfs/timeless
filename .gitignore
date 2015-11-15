@@ -4,3 +4,4 @@ keys.py
 .DS_Store
 .ipynb_checkpoints
 sample.csv
+full_output_full.csv
