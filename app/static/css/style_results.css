@@ -24,6 +24,8 @@ body {
     stroke-weight:0.1;
     fill: #3660b0;
 }
+
+
 .label {
     font-family:  Myriad, "Helvetic Neue", Helvetica, Arial;
     text-anchor: middle;
@@ -33,26 +35,6 @@ body {
     margin: 0 auto;
 }
 
-
-.bar {
-  fill: steelblue;
-}
-
-.bar:hover {
-  fill: brown;
-}
-
-.axis {
-  font: 10px sans-serif;
-}
-
-.axis path,
-.axis line {
-  fill: none;
-  stroke: #000;
-  shape-rendering: crispEdges;
-}
-
-.x.axis path {
-  display: none;
+text .label {
+  color:#3660b0;
 }
