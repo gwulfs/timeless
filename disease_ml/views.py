@@ -7,8 +7,10 @@ import sys
 import base64
 
 from Azure import AzureTextAnalytics
+from manual_filter import ManualFilter
 
-azureTextAnalytics = AzureTextAnalytics()
+azure_text_analytics = AzureTextAnalytics()
+manual_filter = ManualFilter()
 
 app = Flask(__name__)
 
@@ -19,5 +21,11 @@ def index():
 @app.route("/results", methods = ['POST'])
 def results():
     #return request.form['query']
-    searchTerms = azureTextAnalytics.getOutput(request.form['query'])
-    return render_template('results.html', textAnalytics = json.dumps(searchTerms[0].split()), searchQuery=json.dumps(request.form['query'].split()))
+    user_input = request.form['query'].split()
+    azure_sentiment, azure_key_phrases = azure_text_analytics.getOutput(request.form['query'])
+    azure_key_phrases = manual_filter.runFilter(user_input, azure_key_phrases)
+    return render_template('dashboard.html', text_analytics = json.dumps(azure_key_phrases), search_query=json.dumps(user_input), azure_sentiment = (azure_sentiment*100))
+
+@app.route('/dashboard')
+def dashboard():
+    return render_template('dashboard.html')

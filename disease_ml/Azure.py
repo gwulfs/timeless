@@ -16,10 +16,12 @@ class AzureTextAnalytics:
         req = urllib2.Request(sentiment_url, None, headers)
         response = urllib2.urlopen(req)
         result = response.read()
-        obj = json.loads(result)
+        obj_sentiment = json.loads(result)
+        export_sentiment = obj_sentiment['Score']
         key_phrases_url = base_url + '/GetKeyPhrases?' + urllib.urlencode(params)
         req = urllib2.Request(key_phrases_url, None, headers)
         response = urllib2.urlopen(req)
         result = response.read()
-        obj = json.loads(result)
-        return obj['KeyPhrases']
+        obj_key_phrases = json.loads(result)
+        export_key_phrases = obj_key_phrases['KeyPhrases'][0].split()
+        return export_sentiment, export_key_phrases

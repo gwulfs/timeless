@@ -3,12 +3,20 @@
   <title>Diagnosis</title>
   <link href="{{ url_for('static', filename='') }}css/bootstrap.min.css" rel="stylesheet">
   <link href="{{ url_for('static', filename='') }}css/style_index.css" rel="stylesheet">
+  <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
 </head>
 <body>
   <div id="search">
     <form action="{{ url_for('results') }}" method="post">
-      <input type="search" name="query" value="" x-webkit-speech placeholder="Type your symptom(s) here" />
-      <button type="submit" class="btn btn-primary">Search</button>
+      <input type="search" id="query" name="query" value="" placeholder="Type your symptom(s) here" />
+      <table class="search-bar"><tr><td><button type="submit" class="btn btn-primary">Search</button></td>
+      <td><a class="btn btn-primary" onclick="recognition.start()">Record</a></td></tr></table>
     </form>
+    <script>
+      var recognition = new webkitSpeechRecognition();
+      recognition.onresult = function(event) {
+        $("#query").val(event.results[0][0].transcript)
+      }
+    </script>
   </div>
 </body>
