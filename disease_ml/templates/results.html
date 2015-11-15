@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<head>
+  <title>Diagnosis</title>
+  <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
+  <script type="text/javascript" src="{{ url_for('static', filename='') }}js/render_load.js"></script>
+  <link href="{{ url_for('static', filename='') }}css/style_results.css" rel="stylesheet">
+  <link href="{{ url_for('static', filename='') }}css/style_wheel.css" rel="stylesheet">
+  <script type="text/javascript" src="{{ url_for('static', filename='') }}js/render_load.js"></script>
+  <script src="//d3js.org/d3.v3.min.js" charset="utf-8"></script>
+</head>
+<body>
+  <div class="container">
+    <h1 id="searchQueryHeader"></h1>
+  </div>
+  <div class="container">
+    <div class="col-md-6">
+
+      <div id="results">
+        <div class="loader">
+          <div class="loader-bg">
+            <div class="text"></div>
+          </div>
+          <div class="spiner-holder-one animate-0-25-a">
+            <div class="spiner-holder-two animate-0-25-b">
+              <div class="loader-spiner" style=""></div>
+            </div>
+          </div>
+          <div class="spiner-holder-one animate-25-50-a">
+            <div class="spiner-holder-two animate-25-50-b">
+              <div class="loader-spiner"></div>
+            </div>
+          </div>
+          <div class="spiner-holder-one animate-50-75-a">
+            <div class="spiner-holder-two animate-50-75-b">
+              <div class="loader-spiner"></div>
+            </div>
+          </div>
+          <div class="spiner-holder-one animate-75-100-a">
+            <div class="spiner-holder-two animate-75-100-b">
+              <div class="loader-spiner"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <script type="text/javascript">
+        //render the wheel
+        renderProgress(90);
+        //color the words
+        //<h1>{{ searchQuery }}: {{ textAnalytics }}</h1>
+        var searchQuery = {{ searchQuery|safe }}
+        var textAnalytics = {{ textAnalytics|safe }}
+        $("#searchQueryHeader").html(function(){
+          var out = ""
+          //console.log(searchQuery.length)
+          for(i = 0; i<searchQuery.length; i++) {
+            if(textAnalytics.indexOf(searchQuery[i])>-1) {
+              out = out.concat("<p class='pin' id='mesh'>"+searchQuery[i]+" </p>")
+            }
+            else {
+              out = out.concat("<p class='pin'>"+searchQuery[i]+" </p>")
+            }
+
+          }
+          return out
+        })
+        /*
+        d3.selectAll("h1")
+          .data(["test", "test2"])
+          .enter()
+          .append("p")
+          .text(function(d){
+            return d
+          })
+          */
+      </script>
+
+
+    </div>
+    <div class="col-md-6">
+      <p>other</p>
+    </div>
+  </div>
+</body>

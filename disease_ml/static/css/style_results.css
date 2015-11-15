@@ -1,0 +1,10 @@
+body {
+  color: rgb(255, 255, 255);
+  background-color: rgba(0, 0, 0, 0.7);
+}
+#mesh {
+  color: red;
+}
+.pin{
+    display: inline;
+}
