@@ -1,9 +1,16 @@
 <!DOCTYPE html>
 <head>
+
   <title>Diagnosis</title>
   <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
   <script src="//d3js.org/d3.v3.min.js" charset="utf-8"></script>
-  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet" integrity="sha256-MfvZlkHCEqatNoGiOXveE8FIwMzZg4W85qfrfIFBfYc= sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous"></head>
+
+  <link rel="shortcut icon" href="http://i.imgur.com/zD7TEdv.png" type="image/x-icon">
+
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet" integrity="sha256-MfvZlkHCEqatNoGiOXveE8FIwMzZg4W85qfrfIFBfYc= sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
+
+</head>
+
   <link href="{{ url_for('static', filename='') }}css/keen-dashboards.css" rel="stylesheet">
   <link href="{{ url_for('static', filename='') }}css/style_results.css" rel="stylesheet">
   <script type="text/javascript" src="{{ url_for('static', filename='') }}js/radialProgress.js"></script>
@@ -20,13 +27,21 @@
         </div>
         <div class="col-md-4 text-center">
           <div id="classification"></div>
-          <p class="lead">Classification</p>
+          <p class="lead">Severity</p>
         </div>
         <div class="col-md-2"></div>
       </div>
     </div>
-  </div>
+    <br>
+    
+{#     <div class="row">
+      <div class="col-md-12 text-center">
+        Testies
+      </div>
+    <div> #}
+
   <script language="JavaScript">
+
   start()
   function start() {
     var sentiment = radialProgress(document.getElementById('sentiment'))
@@ -37,7 +52,7 @@
     var classification = radialProgress(document.getElementById('classification'))
     .label("Classification")
     .diameter(300)
-    .value(78)
+    .value({{ severity }})
     .render()
   }
   var searchQuery = {{ search_query|safe }}
@@ -54,5 +69,7 @@
     }
     return out
   })
+
   </script>
+
 </body>
