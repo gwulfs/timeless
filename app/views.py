@@ -8,7 +8,6 @@ import base64
 
 import pandas as pd
 from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.feature_extraction.text import CountVectorizer
 import pickle
 import re
 from nltk.corpus import stopwords
