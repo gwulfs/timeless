@@ -59,7 +59,7 @@ def results():
         vec = pickle.load(pkl_file_vec)
         pkl_file.close()
         pkl_file_vec.close()
-        df = pd.read_csv("../full_output_full.csv")
+        df = pd.read_csv("full_output_full.csv")
         df.wiki = df.wiki.map(lambda x: str(x).replace('\n', ' '))
         df = df[pd.notnull(df[df.columns[2]])]
         df = df[df[df.columns[2]] != '']
