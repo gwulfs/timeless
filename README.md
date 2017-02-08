@@ -1,6 +1,6 @@
 **Timeless - hackharvard**
 ===================
-By [Arpit Agarwal](http://clweb.csa.iisc.ernet.in/cse12/arpit.agarwal), [David van IJzendoorn](http://www.researchgate.net/profile/David_Van_Ijzendoorn), and [Gideon Wulfsohn](http://gwulfs.github.io)
+By [Arpit Agarwal](http://www.seas.upenn.edu/~aarpit), [David van IJzendoorn](http://www.researchgate.net/profile/David_Van_Ijzendoorn), and [Gideon Wulfsohn](http://gwulfs.github.io)
 
 ---
 
